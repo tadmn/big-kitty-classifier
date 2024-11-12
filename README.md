@@ -1,1 +1,1 @@
-# goof-or-no-goof
+# Big Kitty Classifier
