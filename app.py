@@ -1,7 +1,15 @@
 import gradio as gr
+from fastai.vision.all import *
 
-def greet(name):
-    return "Hello " + name + "!!"
+learn = load_learner('assets/models/learner.pkl')
+labels = learn.dls.vocab
 
-demo = gr.Interface(fn=greet, inputs="text", outputs="text")
-demo.launch()
+
+def predict(img):
+    img = PILImage.create(img)
+    pred, pred_idx, probs = learn.predict(img)
+    return {labels[i]: float(probs[i]) for i in range(len(labels))}
+
+
+iface = gr.Interface(fn=predict, inputs=gr.Image(), outputs=gr.Label(num_top_classes=7), title='Big Kitty Classifier')
+iface.launch()
