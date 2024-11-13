@@ -12,4 +12,4 @@ def predict(img):
 
 
 iface = gr.Interface(fn=predict, inputs=gr.Image(), outputs=gr.Label(num_top_classes=7), title='Big Kitty Classifier')
-iface.launch()
+iface.launch(share=True)
